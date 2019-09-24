@@ -1,0 +1,2 @@
+# TemplateFunctions
+Code generic functions

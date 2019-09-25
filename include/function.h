@@ -3,23 +3,20 @@
 
 #include <iostream>
 #include <functional>
+#include <algorithm>
 
+template< typename Type > bool pred( Type const & pred ){ return true; }
 
-template < typename T, typename Predicate >
-
-T const * findIf ( T const * first, T const * last , Predicate target )
+template< typename T, typename predicate >
+const T * findIf( const T * first, const T  * last , const predicate & target )
 {
 
-    T const * fast = first;
+    const T * fast = first;
 
     while( fast != last )
     {
-        if( *fast == target )
+        if( ( *fast == target ) == pred( target ) )
         {
-            std::cout << ">>> findIf procurou " << target
-                      << ", achou " << *fast 
-                      << " na posição "
-                      << std::distance( first, fast ) << "\n";
             return fast;
         }
 
@@ -30,6 +27,30 @@ T const * findIf ( T const * first, T const * last , Predicate target )
 
     return last;
 }
+
+
+template< typename Type > bool cmp( const Type & a, const Type & b ){ return a < b; }
+
+template< typename T >
+const T * min( const T * first, const T * last )
+{
+    const T * min = first;
+
+    while( first != last )
+    {
+        if( cmp( *first, *min ) )
+        {
+            min = first;
+        }
+
+        first++;
+    }
+
+    return min;
+}
+
+
+
 
 
 #endif

@@ -4,7 +4,12 @@
 #include <iostream>
 #include <functional>
 #include <algorithm>
+#include <utility>
 
+/*
+//==============================================================================
+// function findIf -- search for target in range
+//===============================================================================
 template< typename Type > bool pred( Type const & pred ){ return true; }
 
 template< typename T, typename predicate >
@@ -27,31 +32,45 @@ const T * findIf( const T * first, const T  * last , const predicate & target )
 
     return last;
 }
+//===================================================================================
+*/
 
+//===================================================================================
+//function minmax - return a pair< minor, major >
+//=================================================================================== 
 
-template< typename Type > bool cmp( const Type & a, const Type & b ){ return a < b; }
+template< typename Itr, typename Compare >
 
-template< typename T >
-const T * min( const T * first, const T * last )
+std::pair< Itr, Itr > minmax( const Itr first, const Itr last, Compare cmp )
 {
-    const T * min = first;
+    Itr min = first;
 
-    while( first != last )
+    Itr max = first;
+
+    Itr fast = first;
+
+    while( fast != last )
     {
-        if( cmp( *first, *min ) )
+        if( cmp( *fast, *min ) )
         {
-            min = first;
+            min = fast;
         }
 
-        first++;
+        if( cmp( *max, *fast ) )
+        {
+            max = fast;
+        }
+
+        fast++;
     }
 
-    return min;
+    return std::make_pair( min, max);
 }
+//==================================================================================
 
 
-
-
+//==================================================================================
+//function 
 
 #endif
 

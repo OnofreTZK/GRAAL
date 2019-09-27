@@ -7,21 +7,20 @@
 #include <iterator>
 #include <utility>
 
-/*
-//==============================================================================
-// function findIf -- search for target in range
+
 //===============================================================================
-template< typename Type > bool pred( Type const & pred ){ return true; }
+// function findIf -- search for target( client choose condition )
+//===============================================================================
 
-template< typename T, typename predicate >
-const T * findIf( const T * first, const T  * last , const predicate & target )
+template< typename Itr, typename Predicate >
+
+const Itr find_if( const Itr first, const Itr last , const Predicate p )
 {
-
-    const T * fast = first;
+    Itr fast = first;
 
     while( fast != last )
     {
-        if( ( *fast == target ) == pred( target ) )
+        if( p(*fast) )
         {
             return fast;
         }
@@ -34,7 +33,7 @@ const T * findIf( const T * first, const T  * last , const predicate & target )
     return last;
 }
 //===================================================================================
-*/
+
 
 //===================================================================================
 //function minmax - return a pair< minor, major >
@@ -109,5 +108,29 @@ void reverse( Itr first, Itr last )
     }
 }
 //=================================================================================
+
+
+
+//=================================================================================
+//function find with target
+//=================================================================================
+
+template< typename Itr, typename T, typename Equal >
+
+Itr find( const Itr first, const Itr last, const T target, Equal eq )
+{
+    Itr fast = first;
+
+    while( fast != last )
+    {
+        if( eq( *fast, target ) )
+        {
+            return fast;
+        }
+        fast++;
+    }
+
+    return last;
+}
 #endif
 

@@ -5,6 +5,21 @@
 
 bool cmp( const int & a, const int & b ) { return( a < b ); }
 
+bool p( const int & pred )
+{
+    if( pred % 2 == 1 )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool eq( const int & a, const int & b )
+{
+    return ( a == b ); 
+}
+
 int main ( void )
 {
     int A[10] = { 1, 4, 67, 90, 45, 8, 32, 65, 21, 58 };
@@ -94,6 +109,53 @@ int main ( void )
         std::cout << i << " ";
     }
     std::cout << "]\n\n";
+
+
+
+//===================== TEST find_if ==========================
+
+    std::cout << ">>>Vetor A:\n";
+    std::cout << "\n[ ";
+    for( const int & i: A )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    std::cout << ">>>Para teste o predicado unário busca pelo primeiro número impar no vetor\n";
+    std::cout << ">>>O primeiro impar no vetor A é 1\n";
+    std::cout << ">>>find_if achou: " << *find_if( A, A + 10, p ) << "\n";
+
+    int E[9] = { 2, 4, 6, 8, 9, 7, 5, 3, 1 };
+
+    std::cout << ">>>Vetor E:\n";
+    std::cout << "\n[ ";
+    for( const int & i: A )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    std::cout << ">>>O primeiro impar no vetor E é 9\n";
+    std::cout << ">>>find_if achou: " << *find_if( E, E + 9, p ) << "\n";
+
+
+
+//===================== TEST find ==========================
+
+    std::cout << ">>>Vetor A:\n";
+    std::cout << "\n[ ";
+    for( const int & i: A )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    std::cout << ">>>O alvo passado é 8 e ele está na posição 5!\n";
+    std::cout << ">>>find achou " << *find( A, A + 10, 8, eq )
+                                  << " na posição "
+                                  << std::distance( A, find( A, A + 10, 8, eq ) )
+                                  << "\n";
 
     return 0;
 }

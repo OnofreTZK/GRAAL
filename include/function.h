@@ -132,5 +132,70 @@ Itr find( const Itr first, const Itr last, const T target, Equal eq )
 
     return last;
 }
+
+
+
+//=================================================================================
+//all_of, any_of, none_of
+//=================================================================================
+
+
+template< typename Itr, typename Predicate >
+
+bool all_of( const Itr first, const Itr last, Predicate p )
+{
+    Itr fast = first;
+
+    while( fast != last )
+    {
+        if( !p(*fast) )
+        {
+            return false;
+        }
+        fast++;
+    }
+
+    return true;
+}
+
+
+template< typename Itr, typename Predicate >
+
+bool any_of( const Itr first, const Itr last, Predicate p )
+{
+    Itr fast = first;
+
+    while( fast != last )
+    {
+        if( p(*fast) )
+        {
+            return true;
+        }
+        fast++;
+    }
+
+    return false;
+}
+
+
+template< typename Itr, typename Predicate >
+
+bool none_of( const Itr first, const Itr last, Predicate p )
+{
+    Itr fast = first;
+
+    while( fast != last )
+    {
+        if( p(*fast) )
+        {
+            return false;
+        }
+        fast++;
+    }
+
+    return true;
+}
+
+//=========================================================================
 #endif
 

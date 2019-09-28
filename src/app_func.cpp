@@ -2,6 +2,7 @@
 
 #include <iterator>
 
+//====================== CLIENT functions =========================
 
 bool cmp( const int & a, const int & b ) { return( a < b ); }
 
@@ -20,6 +21,16 @@ bool eq( const int & a, const int & b )
     return ( a == b ); 
 }
 
+bool p2( const int & pred )
+{
+    if( pred % 2 == 0 )
+    {
+        return true;
+    }
+
+    return false;
+}
+//=================================================================
 int main ( void )
 {
     int A[10] = { 1, 4, 67, 90, 45, 8, 32, 65, 21, 58 };
@@ -157,5 +168,90 @@ int main ( void )
                                   << std::distance( A, find( A, A + 10, 8, eq ) )
                                   << "\n";
 
+
+
+
+//===================== TEST all_of, anyf_of, none_of ==========================
+
+
+    int F[10] = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
+    std::cout << "\n\n>>>Para teste o predicado unário testa se o elemento é par\n";
+
+    std::cout << ">>>Vetor F:\n";
+    std::cout << "\n[ ";
+    for( const int & i: F )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    if( all_of( F, F + 10, p2 ) )
+    {
+        std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
+    }
+    else
+    {
+        std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
+    }
+
+    int G[5] = { 1, 2, 4, 6, 8 };
+
+    std::cout << ">>>Vetor G:\n";
+    std::cout << "\n[ ";
+    for( const int & i: G )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    if( all_of( G, G + 5, p2 ) )
+    {
+        std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
+    }
+    else
+    {
+        std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
+    }
+
+
+    // any_of
+    if( any_of( G, G + 5, p2 ) )
+    {
+        std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
+    }
+    else
+    {
+        std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
+    }
+
+
+    // none_of
+    int H[10] = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
+
+    std::cout << ">>>Vetor H:\n";
+    std::cout << "\n[ ";
+    for( const int & i: H )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    if( none_of( H, H + 10, p2 ) )
+    {
+        std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
+    }
+    else
+    {
+        std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
+    }
+
+    if( none_of( G, G + 5, p2 ) )
+    {
+        std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
+    }
+    else
+    {
+        std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
+    }
     return 0;
 }

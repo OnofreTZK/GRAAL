@@ -253,5 +253,43 @@ int main ( void )
     {
         std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
     }
+
+//===================== TEST all_of, anyf_of, none_of ==========================
+
+
+    int I[5] = { 1, 2, 3, 4, 5 };
+    int J[6] = { 6, 7, 8, 9, 10, 11 };
+    int K[5] = { 1, 2, 3, 4, 5 };
+
+    if( equal( I, I + 5, J, eq ) )
+    {
+        std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
+    }
+    else
+    {
+        std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
+    }
+
+
+    if( equal( I, I + 5, K, K + 5, eq ) )
+    {
+        std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
+    }
+    else
+    {
+        std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
+    }
+
+
+    if( equal( I, I + 5, G, G + 5, eq ) )
+    {
+        std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
+    }
+    else
+    {
+        std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
+    }
+
+
     return 0;
 }

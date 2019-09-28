@@ -197,5 +197,39 @@ bool none_of( const Itr first, const Itr last, Predicate p )
 }
 
 //=========================================================================
+
+
+template< typename Itr, typename Equal >
+
+bool equal( const Itr first, const Itr last, const Itr first2, Equal eq )
+{
+    int range_size1 = std::distance( first, last );
+    int range_size2 = std::distance( first2, first2 + range_size1 );
+    if( eq( range_size1, range_size2) )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+template< typename Itr, typename Equal >
+
+bool equal( const Itr first, const Itr last, const Itr first2, const Itr last2, Equal eq )
+{
+    Itr fast = first;
+    Itr fast2 = first2;
+
+    while( ( fast != last ) and ( fast2 != last2 ) )
+    {
+        if( !eq( *fast, *fast2 ) )
+        {
+            return false;
+        }
+        fast++;
+        fast2++;
+    }
+    return true;
+}
 #endif
 

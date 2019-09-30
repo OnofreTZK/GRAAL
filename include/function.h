@@ -197,7 +197,8 @@ bool none_of( const Itr first, const Itr last, Predicate p )
 }
 
 //=========================================================================
-
+//Overloaded function equal.
+//=========================================================================
 
 template< typename Itr, typename Equal >
 
@@ -230,6 +231,180 @@ bool equal( const Itr first, const Itr last, const Itr first2, const Itr last2, 
         fast2++;
     }
     return true;
+}
+
+//=========================================================================
+// function unique
+//=========================================================================
+template< typename Itr, typename Equal >
+
+Itr unique( Itr first, Itr last, Equal eq )
+{
+    Itr fast = first;
+    Itr slow = first;
+
+    int cnt = 0;
+
+    while( fast != last )
+    {
+        slow = first;
+
+        while( slow != last )
+        {
+            if( slow == fast )
+            {
+                slow++;
+                continue;
+            }
+            else if( eq( *slow, *fast ) )
+            {
+                break;
+            }
+            slow++;
+        }
+
+        if( slow != last )
+        {
+            fast++;
+            continue;
+        }
+        else if( slow == last )
+        {
+            cnt++;
+            slow = fast;
+
+            while( slow != first )
+            {
+                std::iter_swap( slow, slow - 1 );
+                slow--;
+            }
+        }
+        fast++;
+    }
+
+    //fast = first;
+
+    Itr sortedLast = first + cnt;
+
+    Itr minor{ first };
+
+    while( first != sortedLast )
+    {
+        Itr selector{ first };
+        //selection sort
+        while( selector != sortedLast )
+        {
+            if( *selector < *minor )
+            {
+                minor = selector;
+            }
+            selector++;
+        }
+        std::iter_swap( first, minor );
+        first++;
+    }
+    return last;
+}
+
+//===============================================================================
+// function partition
+//===============================================================================
+
+template< typename Itr, typename Predicate >
+
+Itr partition( Itr first, Itr last, Predicate p )
+{
+    Itr slow = first;
+    Itr fast = first;
+
+    while( fast != last )
+    {
+        if(  p( *fast  ) )
+        {
+            std::iter_swap( slow, fast );
+            slow++;
+        }
+
+        fast++;
+    }
+
+
+    return slow;
+}
+
+//=============================================================================
+// function to sort - i will use Insertion sort
+//=============================================================================
+
+template< typename Itr, typename Comparison >
+
+Itr sort( Itr first, Itr last, Comparison comp )
+{
+
+    Itr fast = first;
+    Itr slow = fast;
+
+    while( fast != last - 1 )
+    {
+
+        if( comp( *(fast + 1 ), *fast ) )
+        {
+            std::iter_swap( fast, fast + 1 );
+            slow = fast;
+            fast++;
+
+            while( slow != first )
+            {
+                if( comp( *slow, *(slow - 1) ) )
+                {
+                    std::iter_swap( slow, slow - 1 );
+                    slow--;
+                }
+                else if( *slow == *(slow - 1) )
+                {
+                    slow--;
+                }
+                else if(  comp( *(slow - 1 ), *slow ) )
+                {
+                    break;
+                }
+
+            }
+
+        }
+        else if( comp( *fast, *(fast + 1) ) )
+        {
+            fast++;
+        }
+        else if( *fast == *(fast + 1) )
+        {
+            fast++;
+        }
+
+    }
+
+    return fast;
+}
+//=============================================================================
+// function to rotate - nfirst must be first and n nfirst - 1 must be last;
+//=============================================================================
+
+template< typename Itr >
+
+Itr rotate( Itr first, Itr nfirst, Itr last )
+{
+
+    std::cout << "\nnfirst = " << *nfirst << "\n";
+
+    Itr fast = nfirst;
+    Itr fast2 = first;
+ 
+    while(  fast2 != nfirst )
+    {
+        std::iter_swap( fast2++ , fast++ );
+    }
+
+    return first;
 }
 #endif
 

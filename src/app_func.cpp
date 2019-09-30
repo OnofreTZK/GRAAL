@@ -31,6 +31,8 @@ bool p2( const int & pred )
     return false;
 }
 //=================================================================
+//My tests.
+//=================================================================
 int main ( void )
 {
     int A[10] = { 1, 4, 67, 90, 45, 8, 32, 65, 21, 58 };
@@ -44,6 +46,8 @@ int main ( void )
 
 //===================== TEST MinMax =========================
 
+    std::cout<< "\nTEST minmax\n";
+
     std::cout << "\n>>>O valor minimo é " << A[0] << " e o maior é " << A[3] << "\n";
 
     //std::pair< int, int > Pairs = minmax( A, A+10, cmp );
@@ -55,6 +59,8 @@ int main ( void )
 
 
 //===================== TEST Copy ==========================
+
+    std::cout<< "\nTEST copy\n";
 
     int B[10];
 
@@ -82,6 +88,8 @@ int main ( void )
 
 
 //===================== TEST Reverse ==========================
+
+    std::cout<< "\nTEST reverse\n";
 
     int C[10] = { 1, 2 ,3, 4, 5, 6, 7, 8, 9, 10 };
     int D[5] = { 1, 3, 5, 7, 9 };
@@ -125,6 +133,8 @@ int main ( void )
 
 //===================== TEST find_if ==========================
 
+    std::cout<< "\nTEST find_if\n";
+
     std::cout << ">>>Vetor A:\n";
     std::cout << "\n[ ";
     for( const int & i: A )
@@ -154,6 +164,8 @@ int main ( void )
 
 //===================== TEST find ==========================
 
+    std::cout<< "\nTEST find\n";
+
     std::cout << ">>>Vetor A:\n";
     std::cout << "\n[ ";
     for( const int & i: A )
@@ -173,6 +185,8 @@ int main ( void )
 
 //===================== TEST all_of, anyf_of, none_of ==========================
 
+
+    std::cout<< "\nTEST all_of\n";
 
     int F[10] = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 };
     std::cout << "\n\n>>>Para teste o predicado unário testa se o elemento é par\n";
@@ -215,6 +229,8 @@ int main ( void )
 
 
     // any_of
+    std::cout<< "\nTEST any_of\n";
+
     if( any_of( G, G + 5, p2 ) )
     {
         std::cout << "\nRetornou \x1b[92mTRUE\x1b[0m!\n";
@@ -226,6 +242,8 @@ int main ( void )
 
 
     // none_of
+    std::cout<< "\nTEST none_of\n";
+
     int H[10] = { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19 };
 
     std::cout << ">>>Vetor H:\n";
@@ -254,8 +272,9 @@ int main ( void )
         std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
     }
 
-//===================== TEST all_of, anyf_of, none_of ==========================
+//===================== TEST equal overloaded ==========================
 
+    std::cout<< "\nTEST overloaded equal\n";
 
     int I[5] = { 1, 2, 3, 4, 5 };
     int J[6] = { 6, 7, 8, 9, 10, 11 };
@@ -290,6 +309,105 @@ int main ( void )
         std::cout << "\nRetornou \x1b[91mFALSE\x1b[0m!\n";
     }
 
+
+//===================== TEST unique ====================================
+
+    std::cout<< "\nTEST unique\n";
+
+    int L[10] = { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 };
+
+    std::cout << ">>>Vetor L:\n";
+    std::cout << "\n[ ";
+    for( const int & i: L )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    int * newLast = unique( L, L + 10, eq );
+    std::cout << *( newLast - 1 ) << "\n";
+
+    std::cout << ">>>Vetor L:\n";
+    std::cout << "\n[ ";
+    for( const int & i: L )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+//===================== TEST partition ====================================
+
+    std::cout<< "\nTEST partition\n";
+
+    int M[10] = { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 };
+
+    std::cout << ">>>Vetor M:\n";
+    std::cout << "\n[ ";
+    for( const int & i: M )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    int * newLast2 = partition( M, M + 10, p2 );
+    std::cout << *( newLast2 ) << "\n";
+
+    std::cout << ">>>Vetor M:\n";
+    std::cout << "\n[ ";
+    for( const int & i: M )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+//===================== TEST sort ====================================
+
+    std::cout<< "\nTEST sort\n";
+
+    int N[10] = { 1, 4, 67, 90, 45, 8, 32, 65, 21, 58 };
+
+    std::cout << ">>>Vetor N:\n";
+    std::cout << "\n[ ";
+    for( const int & i: N )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    int * newLast3 = sort( N, N + 10, cmp );
+    std::cout << *( newLast3 - 1 ) << "\n";
+
+    std::cout << ">>>Vetor N:\n";
+    std::cout << "\n[ ";
+    for( const int & i: N )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+//===================== TEST rotate ====================================
+
+    std::cout<< "\nTEST rotate\n";
+    int O[10] = { 1, 2 ,3, 4, 5, 6, 7, 8, 9, 10 };
+
+    std::cout << ">>>Vetor O:\n";
+    std::cout << "\n[ ";
+    for( const int & i: O )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
+
+    int * newLast4 = rotate( O, O + 5, O + 10);
+    std::cout << *( newLast4 ) << "\n";
+
+    std::cout << ">>>Vetor O:\n";
+    std::cout << "\n[ ";
+    for( const int & i: O )
+    {
+        std::cout << i << " ";
+    }
+    std::cout << "]\n\n";
 
     return 0;
 }

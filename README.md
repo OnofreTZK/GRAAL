@@ -2,7 +2,7 @@
 
 ## Compile and running
 ```bash
-$ cmake -S . -Bbuild
+$ cmake -S . -Bbuild && cd build/
 ```
 
 Visualization:

@@ -1,7 +1,8 @@
-#include "../include/function.h"
+#include "../include/graal.h"
 
 #include <iterator>
 
+using namespace graal;
 //====================== CLIENT functions =========================
 
 bool cmp( const int & a, const int & b ) { return( a < b ); }
@@ -388,7 +389,7 @@ int main ( void )
 //===================== TEST rotate ====================================
 
     std::cout<< "\nTEST rotate\n";
-    int O[10] = { 1, 2 ,3, 4, 5, 6, 7, 8, 9, 10 };
+    int O[7] = { 1, 2, 3, 4, 5, 6, 7 }; //{ 1, 2 ,3, 4, 5, 6, 7, 8, 9, 10 };
 
     std::cout << ">>>Vetor O:\n";
     std::cout << "\n[ ";
@@ -398,7 +399,7 @@ int main ( void )
     }
     std::cout << "]\n\n";
 
-    int * newLast4 = rotate( O, O + 5, O + 10);
+    int * newLast4 = rotate( O, O + 4, O + 7);
     std::cout << *( newLast4 ) << "\n";
 
     std::cout << ">>>Vetor O:\n";

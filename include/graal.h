@@ -7,7 +7,7 @@
 #include <iterator>
 #include <utility>
 
-
+namespace graal {
 //===============================================================================
 // function findIf -- search for target( client choose condition )
 //===============================================================================
@@ -43,6 +43,11 @@ template< typename Itr, typename Compare >
 
 std::pair< Itr, Itr > minmax( const Itr first, const Itr last, Compare cmp )
 {
+    if( std::distance( first, last ) == 0 )
+    {
+        return std::make_pair( first, first );
+    }
+
     Itr min = first;
 
     Itr max = first;
@@ -51,17 +56,27 @@ std::pair< Itr, Itr > minmax( const Itr first, const Itr last, Compare cmp )
 
     while( fast != last )
     {
-        if( cmp( *fast, *min ) )
+        if( *fast == *min )
+        {
+            fast++;
+            continue;
+        }
+        else if( cmp( *fast, *min ) )
         {
             min = fast;
         }
 
-        if( cmp( *max, *fast ) )
+        if( cmp( *max, *fast ) or ( *fast == *max ) )
         {
             max = fast;
         }
 
         fast++;
+    }
+
+    if( *min == *max )
+    {
+        return std::make_pair( first, last - 1 );
     }
 
     return std::make_pair( min, max);
@@ -205,19 +220,33 @@ template< typename Itr, typename Equal >
 bool equal( const Itr first, const Itr last, const Itr first2, Equal eq )
 {
     int range_size1 = std::distance( first, last );
-    int range_size2 = std::distance( first2, first2 + range_size1 );
-    if( eq( range_size1, range_size2) )
+
+    Itr fast = first;
+    Itr fast2 = first2;
+
+    while( fast2 != ( first2 + range_size1 ) )
     {
-        return true;
+        if( !eq( *fast, *fast2 ) )
+        {
+            return false;
+        }
+        fast++;
+        fast2++;
     }
 
-    return false;
+    return true;
 }
 
 template< typename Itr, typename Equal >
 
 bool equal( const Itr first, const Itr last, const Itr first2, const Itr last2, Equal eq )
 {
+
+    if( std::distance( first, last ) != std::distance( first2, last2 ) )
+    {
+        return false;
+    }
+
     Itr fast = first;
     Itr fast2 = first2;
 
@@ -282,28 +311,7 @@ Itr unique( Itr first, Itr last, Equal eq )
         fast++;
     }
 
-    //fast = first;
-
-    Itr sortedLast = first + cnt;
-
-    Itr minor{ first };
-
-    while( first != sortedLast )
-    {
-        Itr selector{ first };
-        //selection sort
-        while( selector != sortedLast )
-        {
-            if( *selector < *minor )
-            {
-                minor = selector;
-            }
-            selector++;
-        }
-        std::iter_swap( first, minor );
-        first++;
-    }
-    return last;
+    return slow;
 }
 
 //===============================================================================
@@ -393,18 +401,41 @@ template< typename Itr >
 
 Itr rotate( Itr first, Itr nfirst, Itr last )
 {
-
-    std::cout << "\nnfirst = " << *nfirst << "\n";
-
-    Itr fast = nfirst;
-    Itr fast2 = first;
- 
-    while(  fast2 != nfirst )
+    if( nfirst == first )
     {
-        std::iter_swap( fast2++ , fast++ );
+        return first;
+    }
+    
+    Itr fast = first;
+    Itr slow = nfirst - 1;
+    Itr lastctrl = last - 1;
+
+    while( nfirst != first )
+    {
+        fast = slow;
+        while( fast != lastctrl )
+        {
+            std::iter_swap( fast, fast + 1 );
+            fast++;
+        }
+        lastctrl--;
+        slow--;
+        nfirst--;
     }
 
-    return first;
+    /*
+    Itr fast = first;
+    Itr last2 = last - 1;
+
+    while( nfirst != fast )
+    {
+        std::iter_swap( nfirst - 1, last2-- );
+        std::iter_swap( nfirst , nfirst - 1 );
+        nfirst--;
+    }*/
+
+    return nfirst;
+}
 }
 #endif
 
